@@ -8,7 +8,9 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-
+app.get('/', (req, res) => {
+    res.send('Welcome to the Social Media Links Scraper API!');
+});
 
 app.post('/scrape', async (req, res) => {
     const { url } = req.body;
