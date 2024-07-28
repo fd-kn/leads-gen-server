@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js",
-    "postinstall": "npx puppeteer install  && ./install_chrome.sh"
+    "postinstall": "npx puppeteer install"
 
   },
   "keywords": [],
