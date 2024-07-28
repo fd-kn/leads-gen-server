@@ -1,8 +1,6 @@
 const express = require('express');
 const puppeteer = require('puppeteer');
 const cors = require('cors');
-const path = require('path');
-
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -10,9 +8,7 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-app.get('/', (req, res) => {
-    res.send('Welcome to the Social Media Links Scraper API!');
-});
+
 
 app.post('/scrape', async (req, res) => {
     const { url } = req.body;
@@ -22,14 +18,7 @@ app.post('/scrape', async (req, res) => {
     }
 
     try {
-        const browser = await puppeteer.launch({ headless: true,
-            args: ['--no-sandbox', '--disable-setuid-sandbox'],
-            executablePath: path.resolve(
-                __dirname,
-                'node_modules/puppeteer/.local-chromium/linux-xxxxxx/chrome-linux/chrome'
-            )
-         });
-        
+        const browser = await puppeteer.launch({ headless: true });
         const page = await browser.newPage();
         await page.goto(url, { waitUntil: 'networkidle2' });
 
