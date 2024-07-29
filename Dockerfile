@@ -11,6 +11,5 @@ RUN npm ci
 
 COPY . .
 
-RUN npm install -g nodemon
 
-CMD ["nodemon", "server.js"]
+CMD ["npx", "nodemon", "server.js"]
