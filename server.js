@@ -1,6 +1,7 @@
 const express = require('express');
 const puppeteer = require('puppeteer');
 const cors = require('cors');
+require("dotenv").config();
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -20,7 +21,19 @@ app.post('/scrape', async (req, res) => {
     }
 
     try {
-        const browser = await puppeteer.launch({ headless: true });
+        const browser = await puppeteer.launch({ headless: true,
+
+            args: [
+                "--disable-setuid-sandbox",
+                "--no-sandbox",
+                "--single-process",
+                "--no-zygote",
+            ],
+            executablePath: process.env.NODE_ENV === "production" 
+            ? process.env.PUPPETEER_EXECUTABLE_PATH
+            : puppeteer.executablePath(),
+
+         });
         const page = await browser.newPage();
         await page.goto(url, { waitUntil: 'networkidle2' });
 
